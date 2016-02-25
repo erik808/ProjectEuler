@@ -1,4 +1,5 @@
-#include "eulertools.h" 
+#include "eulertools.h"
+#include <sstream>
 
 //------------------------------------------------------------------
 size_t Eulertools::order(size_t number)
@@ -26,12 +27,12 @@ std::vector<size_t> Eulertools::digitToVector(size_t number)
 }
 
 //------------------------------------------------------------------
-size_t Eulertools::vectorToDigit(std::vector<size_t> vec)
+size_t Eulertools::vectorToDigit(std::vector<size_t> const &vec)
 {
 	size_t result = 0;
 	size_t base = 1;
 	
-	for (std::vector<size_t>::iterator itr = vec.end()-1;
+	for (std::vector<size_t>::const_iterator itr = vec.end()-1;
 		 itr >= vec.begin(); --itr)
 	{
 		result += *itr * base;
@@ -89,7 +90,15 @@ std::vector<size_t> Eulertools::combinations(size_t size)
 }
 
 //------------------------------------------------------------------
-void Eulertools::printVector(std::vector<size_t> &vec)
+std::string Eulertools::vec2str(std::vector<size_t> const &vec)
+{
+	std::stringstream strstream;
+	for (auto &v: vec) strstream << v;
+	return strstream.str();
+}
+
+//------------------------------------------------------------------
+void Eulertools::printVector(std::vector<size_t> const &vec)
 {
 	for (auto const &v: vec)
 		std::cout << v << " ";
