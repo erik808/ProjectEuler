@@ -75,7 +75,7 @@ std::vector<size_t> Eulertools::combinations(size_t size)
 	size_t largest = 1;
 	for (size_t i = 0; i != size; ++i)
 	{
-		 largest *= 2;
+		largest *= 2;
 	}
 	largest -= 1;
 	
@@ -103,4 +103,13 @@ void Eulertools::printVector(std::vector<size_t> const &vec)
 	for (auto const &v: vec)
 		std::cout << v << " ";
 	std::cout << std::endl;
+}
+
+//------------------------------------------------------------------
+size_t Eulertools::factorial(size_t num)
+{
+	size_t result = num;
+	for (size_t i = num-1; i != 0; --i)
+		result *= i;
+	return result;
 }

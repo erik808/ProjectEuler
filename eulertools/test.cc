@@ -10,6 +10,8 @@ int main()
 	Eulertools::printVector(bin1);
 	std::vector<size_t> bin2 = Eulertools::convertToBinary(255);
 	Eulertools::printVector(bin2);
+
+	std::cout << Eulertools::factorial(9) << std::endl;
 	
 	return 0;
 }

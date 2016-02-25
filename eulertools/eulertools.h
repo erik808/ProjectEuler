@@ -20,6 +20,8 @@ namespace Eulertools
 	std::string vec2str(std::vector<size_t> const &vec);
 	
 	void printVector(std::vector<size_t> const &vec);
+
+	size_t factorial(size_t num);
 }
 
 #endif
