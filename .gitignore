@@ -6,6 +6,7 @@ GTAGS
 
 # Folders
 CPP/
+backup/
 
 # Compiled Object files
 *.slo
