@@ -1,4 +1,0 @@
-#include "primes.h"
-#include <iostream>
-#include <vector>
-#define SQUARE(x) (x) * (x)
