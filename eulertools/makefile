@@ -3,7 +3,7 @@ CC      = g++
 CFLAGS  = -Wall -g --std=c++11 -O3
 FILES   = *.cc
 
-all: lib test
+all: lib
 	cp -av *.h ../include/	
 
 test: test.o
