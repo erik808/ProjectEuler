@@ -13,6 +13,11 @@ namespace Eulertools
 
 	std::vector<size_t> digitToVector(size_t number);
 
+    void addVectors(std::vector<size_t> const &n1,
+                    std::vector<size_t> const &n2,
+                    std::vector<size_t> &dest);
+
+
 	std::vector<size_t> convertToBinary(size_t num);
 
 	std::vector<size_t> combinations(size_t size);
@@ -22,6 +27,11 @@ namespace Eulertools
 	void printVector(std::vector<size_t> const &vec);
 
 	size_t factorial(size_t num);
+
+    void reverseVector(std::vector<size_t> const &vec,
+                      std::vector<size_t> &reverse);
+
+    bool isPalindrome(std::vector<size_t> const &vec);
 }
 
 #endif

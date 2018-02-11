@@ -43,6 +43,43 @@ size_t Eulertools::vectorToDigit(std::vector<size_t> const &vec)
 }
 
 //------------------------------------------------------------------
+void Eulertools::addVectors(std::vector<size_t> const &n1,
+                            std::vector<size_t> const &n2,
+                            std::vector<size_t> &dest)
+{
+
+	size_t size1 = n1.size();
+	size_t size2 = n2.size();
+	
+    std::vector<size_t> const *max = (size1 > size2) ? &n1 : &n2;
+    std::vector<size_t> const *min = (size1 > size2) ? &n2 : &n1;
+
+	dest = std::vector<size_t>(*max);
+	
+    std::vector<size_t>::const_reverse_iterator ritMax  = max->rbegin();
+    std::vector<size_t>::const_reverse_iterator ritMin  = min->rbegin();
+    std::vector<size_t>::reverse_iterator ritDest = dest.rbegin();
+
+	for (; ritMax != max->rend(); ++ritMax)
+	{
+		if (ritMin < min->rend())		
+			*ritDest = *ritDest + *ritMin;
+
+		if (*ritDest > 9)
+		{
+			*ritDest %= 10;
+			if ((ritDest + 1) != dest.rend())
+				*(ritDest+1) += 1;
+			else
+				dest.insert(dest.begin(), 1);
+		}
+				
+		++ritMin;
+		++ritDest;
+	}
+}
+
+//------------------------------------------------------------------
 std::vector<size_t> Eulertools::convertToBinary(size_t num)
 {
 	std::vector<size_t> binary;
@@ -112,4 +149,28 @@ size_t Eulertools::factorial(size_t num)
 	for (size_t i = num-1; i != 0; --i)
 		result *= i;
 	return result;
+}
+
+//------------------------------------------------------------------
+void Eulertools::reverseVector(std::vector<size_t> const &vec,
+                              std::vector<size_t> &reverse)
+{
+    reverse.clear();
+    std::vector<size_t>::const_reverse_iterator ritvec = vec.rbegin();
+    for (; ritvec != vec.rend(); ++ ritvec)
+        reverse.push_back(*ritvec);
+}
+
+//------------------------------------------------------------------
+bool Eulertools::isPalindrome(std::vector<size_t> const &vec)
+{
+    std::vector<size_t>::const_reverse_iterator rit = vec.rbegin();
+    std::vector<size_t>::const_iterator it = vec.begin();
+
+    for (; it != vec.end(); ++it, ++rit)
+    {
+        if (*it != *rit)
+            return false;
+    }
+    return true;        
 }
