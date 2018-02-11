@@ -4,42 +4,45 @@
 //------------------------------------------------------------------
 size_t Eulertools::order(size_t number)
 {
-	size_t order = 1;
-	while (order <= number)
-		order *= 10;
-	order /= 10;
-	return order;
+    size_t order = 1;
+    if (number == 0)
+        return order;
+
+    while (order <= number)
+        order *= 10;
+    order /= 10;
+    return order;
 }
 
 //------------------------------------------------------------------
 std::vector<size_t> Eulertools::digitToVector(size_t number)
-{	
-	std::vector<size_t> digitarray;
-	size_t ord = order(number);
+{
+    std::vector<size_t> digitarray;
+    size_t ord = order(number);
 
-	while (ord)
-	{
-		digitarray.push_back(number/ord);
-		number %= ord;
-		ord /= 10;
-	}
-	return digitarray;
+    while (ord)
+    {
+        digitarray.push_back(number/ord);
+        number %= ord;
+        ord /= 10;
+    }
+    return digitarray;
 }
 
 //------------------------------------------------------------------
 size_t Eulertools::vectorToDigit(std::vector<size_t> const &vec)
 {
-	size_t result = 0;
-	size_t base = 1;
-	
-	for (std::vector<size_t>::const_iterator itr = vec.end()-1;
-		 itr >= vec.begin(); --itr)
-	{
-		result += *itr * base;
-		base *= 10;
-	}
+    size_t result = 0;
+    size_t base = 1;
 
-	return result;		
+    for (std::vector<size_t>::const_iterator itr = vec.end()-1;
+         itr >= vec.begin(); --itr)
+    {
+        result += *itr * base;
+        base *= 10;
+    }
+
+    return result;
 }
 
 //------------------------------------------------------------------
@@ -48,59 +51,59 @@ void Eulertools::addVectors(std::vector<size_t> const &n1,
                             std::vector<size_t> &dest)
 {
 
-	size_t size1 = n1.size();
-	size_t size2 = n2.size();
-	
+    size_t size1 = n1.size();
+    size_t size2 = n2.size();
+
     std::vector<size_t> const *max = (size1 > size2) ? &n1 : &n2;
     std::vector<size_t> const *min = (size1 > size2) ? &n2 : &n1;
 
-	dest = std::vector<size_t>(*max);
-	
+    dest = std::vector<size_t>(*max);
+
     std::vector<size_t>::const_reverse_iterator ritMax  = max->rbegin();
     std::vector<size_t>::const_reverse_iterator ritMin  = min->rbegin();
     std::vector<size_t>::reverse_iterator ritDest = dest.rbegin();
 
-	for (; ritMax != max->rend(); ++ritMax)
-	{
-		if (ritMin < min->rend())		
-			*ritDest = *ritDest + *ritMin;
+    for (; ritMax != max->rend(); ++ritMax)
+    {
+        if (ritMin < min->rend())
+            *ritDest = *ritDest + *ritMin;
 
-		if (*ritDest > 9)
-		{
-			*ritDest %= 10;
-			if ((ritDest + 1) != dest.rend())
-				*(ritDest+1) += 1;
-			else
-				dest.insert(dest.begin(), 1);
-		}
-				
-		++ritMin;
-		++ritDest;
-	}
+        if (*ritDest > 9)
+        {
+            *ritDest %= 10;
+            if ((ritDest + 1) != dest.rend())
+                *(ritDest+1) += 1;
+            else
+                dest.insert(dest.begin(), 1);
+        }
+
+        ++ritMin;
+        ++ritDest;
+    }
 }
 
 //------------------------------------------------------------------
 std::vector<size_t> Eulertools::convertToBinary(size_t num)
 {
-	std::vector<size_t> binary;
-	while (num)
-	{
-		if (num % 2)
-			binary.push_back(1);
-		else
-			binary.push_back(0);
+    std::vector<size_t> binary;
+    while (num)
+    {
+        if (num % 2)
+            binary.push_back(1);
+        else
+            binary.push_back(0);
 
-		num /= 2;
-	}
+        num /= 2;
+    }
 
-	std::vector<size_t> result;
-	for (std::vector<size_t>::iterator itr =  binary.end() - 1;
-		 itr >= binary.begin(); --itr)
-	{
-		result.push_back(*itr);
-	}
+    std::vector<size_t> result;
+    for (std::vector<size_t>::iterator itr =  binary.end() - 1;
+         itr >= binary.begin(); --itr)
+    {
+        result.push_back(*itr);
+    }
 
-	return result;	
+    return result;
 }
 
 //------------------------------------------------------------------
@@ -109,46 +112,46 @@ std::vector<size_t> Eulertools::convertToBinary(size_t num)
 // an entry to an indexing vector.
 std::vector<size_t> Eulertools::combinations(size_t size)
 {
-	size_t largest = 1;
-	for (size_t i = 0; i != size; ++i)
-	{
-		largest *= 2;
-	}
-	largest -= 1;
-	
-	size_t bin;
-	std::vector<size_t> result;
-	for (size_t i = 1; i <= largest; ++i)
-	{
-		bin = Eulertools::vectorToDigit(Eulertools::convertToBinary(i));
-		result.push_back(bin);
-	}	
-	return result;
+    size_t largest = 1;
+    for (size_t i = 0; i != size; ++i)
+    {
+        largest *= 2;
+    }
+    largest -= 1;
+
+    size_t bin;
+    std::vector<size_t> result;
+    for (size_t i = 1; i <= largest; ++i)
+    {
+        bin = Eulertools::vectorToDigit(Eulertools::convertToBinary(i));
+        result.push_back(bin);
+    }
+    return result;
 }
 
 //------------------------------------------------------------------
 std::string Eulertools::vec2str(std::vector<size_t> const &vec)
 {
-	std::stringstream strstream;
-	for (auto &v: vec) strstream << v;
-	return strstream.str();
+    std::stringstream strstream;
+    for (auto &v: vec) strstream << v;
+    return strstream.str();
 }
 
 //------------------------------------------------------------------
 void Eulertools::printVector(std::vector<size_t> const &vec)
 {
-	for (auto const &v: vec)
-		std::cout << v << " ";
-	std::cout << std::endl;
+    for (auto const &v: vec)
+        std::cout << v << " ";
+    std::cout << std::endl;
 }
 
 //------------------------------------------------------------------
 size_t Eulertools::factorial(size_t num)
 {
-	size_t result = num;
-	for (size_t i = num-1; i != 0; --i)
-		result *= i;
-	return result;
+    size_t result = num;
+    for (size_t i = num-1; i != 0; --i)
+        result *= i;
+    return result;
 }
 
 //------------------------------------------------------------------
@@ -172,5 +175,36 @@ bool Eulertools::isPalindrome(std::vector<size_t> const &vec)
         if (*it != *rit)
             return false;
     }
-    return true;        
+    return true;
+}
+
+//------------------------------------------------------------------
+void Eulertools::bigPow(size_t base, size_t pow,
+                        std::vector<size_t> &result)
+{
+    std::vector<size_t> tmp;
+    std::vector<size_t> increment;
+
+    increment = Eulertools::digitToVector(base);
+    result    = Eulertools::digitToVector(base);
+
+    for (size_t p = 1; p != pow; ++p)
+    {
+
+        for (size_t j = 1; j != base; ++j)
+        {
+            Eulertools::addVectors(result, increment, tmp);
+            result = tmp;
+        }
+        increment = result;
+    }
+}
+
+//------------------------------------------------------------------
+int Eulertools::sumVector(std::vector<size_t> const &vec)
+{
+    int result = 0;
+    for (auto &el: vec)
+        result += el;
+    return result;
 }

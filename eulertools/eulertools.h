@@ -32,6 +32,11 @@ namespace Eulertools
                       std::vector<size_t> &reverse);
 
     bool isPalindrome(std::vector<size_t> const &vec);
+
+    void bigPow(size_t base, size_t pow,
+                std::vector<size_t> &result);
+
+    int sumVector(std::vector<size_t> const &vec);
 }
 
 #endif
